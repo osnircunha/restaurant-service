@@ -1,0 +1,93 @@
+openapi: 3.0.3
+info:
+  title: Restaurant Service
+  description: "Restaurant Service Application"
+  version: 0.0.1-SNAPSHOT
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /restaurants:
+    get:
+      operationId: getRestaurants
+      parameters:
+        - $ref: '#/components/parameters/name'
+        - $ref: '#/components/parameters/rating'
+        - $ref: '#/components/parameters/distance'
+        - $ref: '#/components/parameters/price'
+        - $ref: '#/components/parameters/cuisine'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Restaurant'
+        400:
+          description: bad request
+
+components:
+  parameters:
+    name:
+      name: name
+      in: query
+      description: Restaurant name
+      required: false
+      schema:
+        type: string
+    rating:
+      name: rating
+      in: query
+      description: Customer rating
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 5
+    distance:
+      name: distance
+      in: query
+      description: Restaurant distance
+      required: false
+      schema:
+        minimum: 1
+        maximum: 50
+        type: integer
+    price:
+      name: price
+      in: query
+      description: title to filter
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+    cuisine:
+      name: cuisine
+      in: query
+      description: Cuisine
+      example: American, Italian
+      required: false
+      schema:
+        type: string
+  schemas:
+    Restaurant:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Five Guys
+        rating:
+          type: string
+          example: 4
+        price:
+          type: string
+          example: 10
+        distance:
+          type: string
+          example: 5
+        cuisine:
+          type: string
+          example: Italian
