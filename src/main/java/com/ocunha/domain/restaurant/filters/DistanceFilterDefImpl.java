@@ -9,7 +9,7 @@ public class DistanceFilterDefImpl implements FilterDef {
 
     @Override
     public boolean filter(Restaurant restaurant, RestaurantSearchParams search) {
-        return isLessOrEquals(restaurant.distance(), search.getDistance());
+        return isGreaterOrEquals(restaurant.distance(), search.getDistance());
     }
 
 }

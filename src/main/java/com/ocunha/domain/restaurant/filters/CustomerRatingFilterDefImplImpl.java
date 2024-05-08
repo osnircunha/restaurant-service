@@ -9,7 +9,7 @@ public class CustomerRatingFilterDefImplImpl implements FilterDef {
 
     @Override
     public boolean filter(Restaurant restaurant, RestaurantSearchParams search) {
-        return isGreaterOrEquals(restaurant.rating(), search.getRating());
+        return isLessOrEquals(restaurant.rating(), search.getRating());
     }
 
 }
