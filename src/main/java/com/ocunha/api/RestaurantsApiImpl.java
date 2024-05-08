@@ -3,6 +3,8 @@ package com.ocunha.api;
 import com.ocunha.domain.restaurant.RestaurantService;
 import com.ocunha.domain.restaurant.model.RestaurantSearchParams;
 import com.ocunha.domain.restaurant.model.model.Restaurant;
+import com.ocunha.spec.api.RestaurantResource;
+import com.ocunha.spec.api.RestaurantsApi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;

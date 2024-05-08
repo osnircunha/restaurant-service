@@ -5,11 +5,10 @@ import com.ocunha.domain.restaurant.model.model.Restaurant;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PriceFilterDefImpl implements FilterDef {
-
+public class RestaurantNameFilterDefinition implements FilterDefinition {
     @Override
     public boolean filter(Restaurant restaurant, RestaurantSearchParams searchParams) {
-        return isGreaterOrEquals(restaurant.price(), searchParams.getPrice());
+        return startsWith(restaurant.name(), searchParams.getName());
     }
 
 }

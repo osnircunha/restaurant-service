@@ -104,6 +104,15 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.10</version>
+                <configuration>
+                    <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
+                    <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
+                    <output>file</output>
+                    <append>true</append>
+                    <excludes>
+                        <exclude>**/com/ocunha/spec/**</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
@@ -140,8 +149,8 @@
                             <generateSupportingFiles>true</generateSupportingFiles>
                             <configOptions>
                                 <interfaceOnly>true</interfaceOnly>
-                                <apiPackage>com.ocunha.api</apiPackage>
-                                <modelPackage>com.ocunha.api</modelPackage>
+                                <apiPackage>com.ocunha.spec.api</apiPackage>
+                                <modelPackage>com.ocunha.spec.api</modelPackage>
                                 <sourceFolder>/src/main/java</sourceFolder>
                                 <implFolder>/src/main/java</implFolder>
                                 <serializableModel>true</serializableModel>

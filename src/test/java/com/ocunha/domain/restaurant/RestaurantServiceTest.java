@@ -29,11 +29,11 @@ class RestaurantServiceTest {
     @BeforeEach
     void setUp() {
         restaurantService = new RestaurantService(applicationConfiguration, restaurantRepository, Arrays.asList(
-                new CuisineFilterDefImpl(),
-                new CustomerRatingFilterDefImplImpl(),
-                new DistanceFilterDefImpl(),
-                new PriceFilterDefImpl(),
-                new RestaurantNameFilterDefImpl()
+                new CuisineFilterDefinition(),
+                new CustomerRatingFilterDefinition(),
+                new DistanceFilterDefinition(),
+                new PriceFilterDefinition(),
+                new RestaurantNameFilterDefinition()
         ));
     }
 

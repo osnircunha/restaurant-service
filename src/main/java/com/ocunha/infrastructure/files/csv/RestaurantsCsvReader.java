@@ -22,7 +22,8 @@ public class RestaurantsCsvReader {
     private static final int ONE = 1;
     private static final int TWO = 2;
     private static final int THREE = 3;
-    
+    private static final int FOUR = 4;
+
     @Value("classpath:csv/restaurants.csv")
     private Resource restaurantsCsvFile;
     @Value("classpath:csv/cuisines.csv")
@@ -56,8 +57,10 @@ public class RestaurantsCsvReader {
                         Integer.parseInt(restaurantsRecord.get(THREE)),
                         cuisines
                                 .stream()
-                                .filter(cuisine -> cuisine.id() == Long.parseLong(restaurantsRecord.get(4)))
-                                .findFirst().orElseThrow().name())
+                                .filter(cuisine -> cuisine.id() == Long.parseLong(restaurantsRecord.get(FOUR)))
+                                .findFirst()
+                                .orElseThrow()
+                                .name())
         ).toList();
     }
 

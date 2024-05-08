@@ -5,11 +5,11 @@ import com.ocunha.domain.restaurant.model.model.Restaurant;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomerRatingFilterDefImplImpl implements FilterDef {
+public class CustomerRatingFilterDefinition implements FilterDefinition {
 
     @Override
-    public boolean filter(Restaurant restaurant, RestaurantSearchParams search) {
-        return isLessOrEquals(restaurant.rating(), search.getRating());
+    public boolean filter(Restaurant restaurant, RestaurantSearchParams searchParams) {
+        return isGreaterOrEquals(restaurant.rating(), searchParams.getRating());
     }
 
 }
