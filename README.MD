@@ -32,14 +32,25 @@ the best match restaurant based on given search criteria.
 3. Build the project using Maven:
 
     ```bash
-    mvn clean install
+    mvn clean package -DskipTests
     ```
    or
    ```bash
-    ./mvnw clean install
+    ./mvnw clean package -DskipTests
     ```
 
-4. Run the application:
+4. Run unit tests using Maven:
+
+    ```bash
+    mvn clean verify
+    ```
+   or
+   ```bash
+    ./mvnw clean verify
+    ```
+
+
+5. Run the application:
 
     ```bash
     java -jar target/restaurants-service-0.0.1-SNAPSHOT.jar
@@ -49,7 +60,7 @@ the best match restaurant based on given search criteria.
     mvn spring-boot:run
     ```
 
-5. Access the API documentation and endpoints via a web browser or API testing tool at:
+6. Access the API documentation and endpoints via a web browser or API testing tool at:
 
     ```http
     http://localhost:8080/swagger-ui/index.html
