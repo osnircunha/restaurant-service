@@ -1,4 +1,6 @@
 # Best Match Restaurant
+![Coverage](.github/badges/jacoco.svg)
+![Branches](.github/badges/branches.svg)
 
 This is a Java REST application built with Spring Boot, Maven, and Java 17. The purpose of this application is to find
 the best match restaurant based on given search criteria.
