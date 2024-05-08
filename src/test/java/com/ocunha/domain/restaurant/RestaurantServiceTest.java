@@ -1,7 +1,7 @@
 package com.ocunha.domain.restaurant;
 
 import com.ocunha.configuration.ApplicationConfiguration;
-import com.ocunha.domain.restaurant.filters.FilterDef;
+import com.ocunha.domain.restaurant.filters.*;
 import com.ocunha.domain.restaurant.model.RestaurantSearchParams;
 import com.ocunha.domain.restaurant.model.model.Restaurant;
 import com.ocunha.infrastructure.files.csv.RestaurantsCsvReader;
@@ -23,19 +23,23 @@ class RestaurantServiceTest {
     private ApplicationConfiguration applicationConfiguration;
     @Mock
     private RestaurantsCsvReader restaurantRepository;
-    @Mock
-    private FilterDef filterDef;
 
     private RestaurantService restaurantService;
 
     @BeforeEach
     void setUp() {
-        restaurantService = new RestaurantService(applicationConfiguration, restaurantRepository, Arrays.asList(filterDef));
+        restaurantService = new RestaurantService(applicationConfiguration, restaurantRepository, Arrays.asList(
+                new CuisineFilterDefImpl(),
+                new CustomerRatingFilterDefImplImpl(),
+                new DistanceFilterDefImpl(),
+                new PriceFilterDefImpl(),
+                new RestaurantNameFilterDefImpl()
+        ));
     }
 
     @Test
     void testFindRestaurants() {
-        RestaurantSearchParams searchParams = new RestaurantSearchParams();
+        RestaurantSearchParams searchParams = RestaurantSearchParams.builder().build();
 
         List<Restaurant> restaurants = Arrays.asList(
                 new Restaurant("TGIF", 1, 15, 20, "Canadian"),
@@ -45,10 +49,6 @@ class RestaurantServiceTest {
 
         when(restaurantRepository.getRestaurants()).thenReturn(restaurants);
         when(applicationConfiguration.getApiResultSize()).thenReturn(5);
-
-        when(filterDef.filter(restaurants.get(0), searchParams)).thenReturn(true);
-        when(filterDef.filter(restaurants.get(1), searchParams)).thenReturn(true);
-        when(filterDef.filter(restaurants.get(2), searchParams)).thenReturn(true);
 
         List<Restaurant> result = restaurantService.findRestaurants(searchParams);
 
@@ -60,7 +60,7 @@ class RestaurantServiceTest {
 
     @Test
     void testFindRestaurantsCroppingResult() {
-        RestaurantSearchParams searchParams = new RestaurantSearchParams();
+        RestaurantSearchParams searchParams = RestaurantSearchParams.builder().build();
 
         List<Restaurant> restaurants = Arrays.asList(
                 new Restaurant("TGIF", 1, 15, 20, "Canadian"),
@@ -70,10 +70,6 @@ class RestaurantServiceTest {
 
         when(restaurantRepository.getRestaurants()).thenReturn(restaurants);
         when(applicationConfiguration.getApiResultSize()).thenReturn(2);
-
-        when(filterDef.filter(restaurants.get(0), searchParams)).thenReturn(true);
-        when(filterDef.filter(restaurants.get(1), searchParams)).thenReturn(true);
-        when(filterDef.filter(restaurants.get(2), searchParams)).thenReturn(true);
 
         List<Restaurant> result = restaurantService.findRestaurants(searchParams);
 
