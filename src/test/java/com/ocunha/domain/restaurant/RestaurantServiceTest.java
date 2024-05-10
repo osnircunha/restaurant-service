@@ -14,7 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,43 +38,132 @@ class RestaurantServiceTest {
     }
 
     @Test
-    void testFindRestaurants() {
+    void testFindRestaurantsWithNoParamsShouldReturnAllSorted() {
         RestaurantSearchParams searchParams = RestaurantSearchParams.builder().build();
 
-        List<Restaurant> restaurants = Arrays.asList(
-                new Restaurant("TGIF", 1, 15, 20, "Canadian"),
-                new Restaurant("Five Guys", 5, 20, 15, "American"),
-                new Restaurant("Steak'n Shake", 3, 40, 25, "Brazilian")
-        );
+        List<Restaurant> restaurants = getRestaurants();
 
-        when(restaurantRepository.getRestaurants()).thenReturn(restaurants);
-        when(applicationConfiguration.getApiResultSize()).thenReturn(5);
+        setUpCommonMocks(restaurants);
 
         List<Restaurant> result = restaurantService.findRestaurants(searchParams);
 
-        assertEquals(3, result.size());
-        assertEquals("Five Guys", result.get(0).name());
-        assertEquals("TGIF", result.get(1).name());
-        assertEquals("Steak'n Shake", result.get(2).name());
+        assertThat(result)
+                .hasSize(3)
+                .satisfiesExactly(
+                        restaurant -> assertThat(restaurant.name()).isEqualTo("Five Guys"),
+                        restaurant -> assertThat(restaurant.name()).isEqualTo("TGIF"),
+                        restaurant -> assertThat(restaurant.name()).isEqualTo("Steak'n Shake")
+                );
+
     }
 
     @Test
-    void testFindRestaurantsCroppingResult() {
-        RestaurantSearchParams searchParams = RestaurantSearchParams.builder().build();
+    void testFindRestaurantsMaxDistance() {
+        RestaurantSearchParams searchParams = RestaurantSearchParams.builder()
+                .distance(20)
+                .build();
 
-        List<Restaurant> restaurants = Arrays.asList(
-                new Restaurant("TGIF", 1, 15, 20, "Canadian"),
-                new Restaurant("Five Guys", 5, 20, 15, "American"),
-                new Restaurant("Steak'n Shake", 3, 40, 25, "Brazilian")
-        );
+        List<Restaurant> restaurants = getRestaurants();
 
-        when(restaurantRepository.getRestaurants()).thenReturn(restaurants);
-        when(applicationConfiguration.getApiResultSize()).thenReturn(2);
+        setUpCommonMocks(restaurants);
 
         List<Restaurant> result = restaurantService.findRestaurants(searchParams);
 
-        assertEquals(2, result.size());
-        assertEquals("Five Guys", result.get(0).name());
-        assertEquals("TGIF", result.get(1).name());
+        assertThat(result)
+                .hasSize(2)
+                .satisfiesExactly(
+                        restaurant -> assertThat(restaurant.name()).isEqualTo("Five Guys"),
+                        restaurant -> assertThat(restaurant.name()).isEqualTo("TGIF")
+                );
+    }
+
+    @Test
+    void testFindRestaurantsMaxPrice() {
+        RestaurantSearchParams searchParams = RestaurantSearchParams.builder()
+                .price(15)
+                .build();
+
+        List<Restaurant> restaurants = getRestaurants();
+
+        setUpCommonMocks(restaurants);
+
+        List<Restaurant> result = restaurantService.findRestaurants(searchParams);
+
+        assertThat(result)
+                .hasSize(1)
+                .satisfiesExactly(
+                        restaurant -> assertThat(restaurant.name()).isEqualTo("Five Guys")
+                );
+    }
+
+    @Test
+    void testFindRestaurantsMinRating() {
+        RestaurantSearchParams searchParams = RestaurantSearchParams.builder()
+                .rating(3)
+                .build();
+
+        List<Restaurant> restaurants = getRestaurants();
+
+        setUpCommonMocks(restaurants);
+
+        List<Restaurant> result = restaurantService.findRestaurants(searchParams);
+
+        assertThat(result)
+                .hasSize(2)
+                .satisfiesExactly(
+                        restaurant -> assertThat(restaurant.name()).isEqualTo("Five Guys"),
+                        restaurant -> assertThat(restaurant.name()).isEqualTo("Steak'n Shake")
+                );
+    }
+
+    @Test
+    void testFindRestaurantsNameContains() {
+        RestaurantSearchParams searchParams = RestaurantSearchParams.builder()
+                .name("Five")
+                .build();
+
+        List<Restaurant> restaurants = getRestaurants();
+
+        setUpCommonMocks(restaurants);
+
+        List<Restaurant> result = restaurantService.findRestaurants(searchParams);
+
+        assertThat(result)
+                .hasSize(1)
+                .satisfiesExactly(
+                        restaurant -> assertThat(restaurant.name()).isEqualTo("Five Guys")
+                );
+    }
+
+    @Test
+    void testFindRestaurantsCuisineContains() {
+        RestaurantSearchParams searchParams = RestaurantSearchParams.builder()
+                .cuisine("Brazilian")
+                .build();
+
+        List<Restaurant> restaurants = getRestaurants();
+
+        setUpCommonMocks(restaurants);
+
+        List<Restaurant> result = restaurantService.findRestaurants(searchParams);
+
+        assertThat(result)
+                .hasSize(1)
+                .satisfiesExactly(
+                        restaurant -> assertThat(restaurant.name()).isEqualTo("Steak'n Shake")
+                );
+    }
+
+    private void setUpCommonMocks(List<Restaurant> restaurants) {
+        when(restaurantRepository.getRestaurants()).thenReturn(restaurants);
+        when(applicationConfiguration.getApiResultSize()).thenReturn(5);
+    }
+
+    private static List<Restaurant> getRestaurants() {
+        return Arrays.asList(
+                new Restaurant("TGIF", 1, 20, 20, "Canadian"),
+                new Restaurant("Five Guys", 5, 15, 15, "American"),
+                new Restaurant("Steak'n Shake", 3, 40, 25, "Brazilian")
+        );
     }
 }
