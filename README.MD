@@ -99,8 +99,8 @@ the best match restaurant based on given search criteria.
 3. Explore and analyze the response to find the best match restaurant based on the given search criteria.
 
 ## Assumptions
-* It was not clear the rule for text search, the example provided seemed to be a starts with rule. The rule applied is a verification of contains ignoring case for the parameters provided on restaurant name and cuisine.
-However it can be easily adjusted if needed by change the interface FilterDefinition.java as below:
+* It was not clear the rule for text search, the example provided seemed to be a "starts with" rule. 
+The rule applied is a verification of "contains ignoring case" for the parameters provided on restaurant name and cuisine. However it can be easily adjusted if needed by change the interface FilterDefinition.java as below:
 
 **Starts with ignoring case:**
 ```java
