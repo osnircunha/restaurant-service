@@ -1,8 +1,17 @@
 # Best Match Restaurant
+
 ![Coverage](.github/badges/jacoco.svg) ![Branches](.github/badges/branches.svg)
 
 This is a Java REST application built with Spring Boot, Maven, and Java 17. The purpose of this application is to find
 the best match restaurant based on given search criteria.
+
+## Tech stack
+
+* Java 17
+* Springboot 3.2.5
+* OpenApi (API first generating controller from swagger.yml spec)
+* Jacoco (Code coverage report available on Github pipeline)
+* Github Actions (Continuous Integration)
 
 ## Features
 
@@ -99,18 +108,23 @@ the best match restaurant based on given search criteria.
 3. Explore and analyze the response to find the best match restaurant based on the given search criteria.
 
 ## Assumptions
-* It was not clear the rule for text search, the example provided seemed to be a "starts with" rule. 
-The rule applied is a verification of "contains ignoring case" for the parameters provided on restaurant name and cuisine. However it can be easily adjusted if needed by change the interface FilterDefinition.java as below:
+
+* It was not clear the rule for text search, the example provided seemed to be a "starts with" rule.
+  The rule applied is a verification of "contains ignoring case" for the parameters provided on restaurant name and
+  cuisine. However it can be easily adjusted if needed by change the interface FilterDefinition.java as below:
 
 **Starts with ignoring case:**
+
 ```java
-    default boolean contains(String current, String searchParam) {
-        return isNull(searchParam) || StringUtils.startsWithIgnoreCase(current, searchParam);
-    }
+    default boolean contains(String current,String searchParam){
+        return isNull(searchParam)||StringUtils.startsWithIgnoreCase(current,searchParam);
+        }
 ```
+
 **Starts with considering case:**
+
 ```java
-    default boolean contains(String current, String searchParam) {
-        return isNull(searchParam) || StringUtils.startsWith(current, searchParam);
-    }
+    default boolean contains(String current,String searchParam){
+        return isNull(searchParam)||StringUtils.startsWith(current,searchParam);
+        }
 ```
