@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class RestaurantNameFilterDefinition implements FilterDefinition {
     @Override
     public boolean filter(Restaurant restaurant, RestaurantSearchParams searchParams) {
-        return startsWith(restaurant.name(), searchParams.getName());
+        return contains(restaurant.name(), searchParams.getName());
     }
 
 }

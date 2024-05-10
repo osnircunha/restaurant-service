@@ -1,6 +1,5 @@
 # Best Match Restaurant
-![Coverage](.github/badges/jacoco.svg)
-![Branches](.github/badges/branches.svg)
+![Coverage](.github/badges/jacoco.svg) ![Branches](.github/badges/branches.svg)
 
 This is a Java REST application built with Spring Boot, Maven, and Java 17. The purpose of this application is to find
 the best match restaurant based on given search criteria.
@@ -19,17 +18,34 @@ the best match restaurant based on given search criteria.
 
 ## Getting Started
 
+### From Git repo
+
 1. Clone the repository:
 
     ```bash
     git clone https://github.com/osnircunha/restaurant-service.git
     ```
-
 2. Navigate to the project directory:
 
     ```bash
     cd restaurant-service
     ```
+   Then you can move to step 3
+
+### From zip file package
+
+1. Unzip the zip file you received:
+   ```bash
+   unzip restaurant-service-master.zip
+   ```
+2. Navigate to the project directory:
+
+    ```bash
+    cd restaurant-service-master
+    ```
+   Then you can move to step 3
+
+### With repo cloned or zip extracted you can proceed as below:
 
 3. Build the project using Maven:
 
@@ -62,14 +78,22 @@ the best match restaurant based on given search criteria.
     mvn spring-boot:run
     ```
 
-6. Access the API documentation and endpoints via a web browser or API testing tool at:
+6. Access the API documentation and endpoints via a web browser. \
 
-    ```http
-    http://localhost:8080/swagger-ui/index.html
-    ```
+   ```http
+   http://localhost:8080/swagger-ui/index.html
+   ```
+   It can also be used to test the api by expanding the "GET /restaurants" and select "Try it out" button.
+   By doing this, it will unlock the parameters form that you can fill based on usage criteria and then click "Execute"
+   to submit a request.
 
 ## Usage
 
-1. Use the provided API endpoints to search for restaurants based on different criteria.
+1. Use the provided API endpoint to search for restaurants based on the five criteria below:
+    * Restaurant Name (Contains the text provided ignoring case)
+    * Customer Rating (1 star ~ 5 stars)
+    * Distance (1 mile ~ 10 miles)
+    * Price (how much one person will spend on average, $10 ~ $50)
+    * Cuisine (Chinese, American, Thai, etc.)
 2. Make requests to the API using tools like cURL, Postman, or your preferred REST client.
 3. Explore and analyze the response to find the best match restaurant based on the given search criteria.
