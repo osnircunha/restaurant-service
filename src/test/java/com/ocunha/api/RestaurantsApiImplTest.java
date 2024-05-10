@@ -1,6 +1,7 @@
 package com.ocunha.api;
 
 import com.ocunha.domain.restaurant.model.model.Restaurant;
+import com.ocunha.spec.api.ErrorResource;
 import io.restassured.RestAssured;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.response.ExtractableResponse;
@@ -53,9 +54,16 @@ class RestaurantsApiImplTest {
                 .body(Matchers.notNullValue())
                 .extract();
 
-        assertThat(response.body().asString())
+        assertThat(response.body().as(new TypeRef<List<ErrorResource>>() {
+        }))
                 .isNotNull()
-                .contains("getRestaurants.rating: must be less than or equal to 5");
+                .hasSize(1)
+                .satisfiesExactly(
+                        errorResource -> assertThat(errorResource)
+                                .hasFieldOrPropertyWithValue("description", "must be less than or equal to 5")
+                                .hasFieldOrPropertyWithValue("field", "rating")
+                                .hasFieldOrPropertyWithValue("value", "10")
+                );
     }
 
     @Test
@@ -69,8 +77,14 @@ class RestaurantsApiImplTest {
                 .body(Matchers.notNullValue())
                 .extract();
 
-        assertThat(response.body().asString())
+        assertThat(response.body().as(new TypeRef<List<ErrorResource>>() {
+        }))
                 .isNotNull()
-                .contains("Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; For input string: \\\"null\\\"\"}");
+                .hasSize(1)
+                .satisfiesExactly(
+                        errorResource -> assertThat(errorResource).hasFieldOrPropertyWithValue("description", "Must be class java.lang.Integer")
+                                .hasFieldOrPropertyWithValue("field", "rating")
+                                .hasFieldOrPropertyWithValue("value", "null")
+                );
     }
 }

@@ -27,6 +27,12 @@ paths:
                   $ref: '#/components/schemas/Restaurant'
         400:
           description: bad request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
 
 components:
   parameters:
@@ -72,6 +78,15 @@ components:
       schema:
         type: string
   schemas:
+    Error:
+      type: object
+      properties:
+        description:
+          type: string
+        field:
+          type: string
+        value:
+          type: string
     Restaurant:
       type: object
       properties:
