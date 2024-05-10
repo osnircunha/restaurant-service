@@ -19,8 +19,8 @@ public interface FilterDefinition {
         return isNull(searchParam) || current.compareTo(searchParam) <= 0;
     }
 
-    default boolean startsWith(String current, String searchParam) {
-        return isNull(searchParam) || StringUtils.startsWithIgnoreCase(current, searchParam);
+    default boolean contains(String current, String searchParam) {
+        return isNull(searchParam) || StringUtils.containsIgnoreCase(current, searchParam);
     }
 
 }

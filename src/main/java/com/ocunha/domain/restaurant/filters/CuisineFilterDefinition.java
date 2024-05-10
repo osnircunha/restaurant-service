@@ -9,7 +9,7 @@ public class CuisineFilterDefinition implements FilterDefinition {
 
     @Override
     public boolean filter(Restaurant restaurant, RestaurantSearchParams searchParams) {
-        return startsWith(restaurant.cuisine(), searchParams.getCuisine());
+        return contains(restaurant.cuisine(), searchParams.getCuisine());
     }
 
 }

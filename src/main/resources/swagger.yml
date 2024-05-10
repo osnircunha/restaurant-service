@@ -33,14 +33,14 @@ components:
     name:
       name: name
       in: query
-      description: Restaurant name
+      description: Name
       required: false
       schema:
         type: string
     rating:
       name: rating
       in: query
-      description: Customer rating
+      description: Customer Rating
       required: false
       schema:
         type: integer
@@ -49,7 +49,7 @@ components:
     distance:
       name: distance
       in: query
-      description: Restaurant distance
+      description: Distance
       required: false
       schema:
         minimum: 1
@@ -58,7 +58,7 @@ components:
     price:
       name: price
       in: query
-      description: title to filter
+      description: Price
       required: false
       schema:
         type: integer
@@ -68,7 +68,6 @@ components:
       name: cuisine
       in: query
       description: Cuisine
-      example: American, Italian
       required: false
       schema:
         type: string
