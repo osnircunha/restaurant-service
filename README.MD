@@ -78,7 +78,7 @@ the best match restaurant based on given search criteria.
     mvn spring-boot:run
     ```
 
-6. Access the API documentation and endpoints via a web browser. \
+6. Access the API documentation and endpoints via a web browser.
 
    ```http
    http://localhost:8080/swagger-ui/index.html
@@ -97,3 +97,20 @@ the best match restaurant based on given search criteria.
     * Cuisine (Chinese, American, Thai, etc.)
 2. Make requests to the API using tools like cURL, Postman, or your preferred REST client.
 3. Explore and analyze the response to find the best match restaurant based on the given search criteria.
+
+## Assumptions
+* It was not clear the rule for text search, the example provided seemed to be a starts with rule. The rule applied is a verification of contains ignoring case for the parameters provided on restaurant name and cuisine.
+However it can be easily adjusted if needed by change the interface FilterDefinition.java as below:
+
+**Starts with ignoring case:**
+```java
+    default boolean contains(String current, String searchParam) {
+        return isNull(searchParam) || StringUtils.startsWithIgnoreCase(current, searchParam);
+    }
+```
+**Starts with considering case:**
+```java
+    default boolean contains(String current, String searchParam) {
+        return isNull(searchParam) || StringUtils.startsWith(current, searchParam);
+    }
+```
