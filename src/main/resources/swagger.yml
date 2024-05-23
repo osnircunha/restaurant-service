@@ -94,13 +94,13 @@ components:
           type: string
           example: Five Guys
         rating:
-          type: string
+          type: integer
           example: 4
         price:
-          type: string
+          type: integer
           example: 10
         distance:
-          type: string
+          type: integer
           example: 5
         cuisine:
           type: string
