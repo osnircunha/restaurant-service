@@ -1,7 +1,3 @@
 spring:
   application:
     name: restaurants-service
-
-api:
-  result:
-    size: 8

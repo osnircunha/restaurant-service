@@ -21,9 +21,7 @@ class RestaurantService(
             ?.filter { restaurant ->
                 filterDefinitions
                     .stream()
-                    .allMatch { filterDef: FilterDefinition ->
-                        filterDef.filter(restaurant, searchParams)
-                    }
+                    .allMatch { it.filter(restaurant, searchParams) }
             }
             ?.sortedWith(restaurantComparator())
             ?.take(applicationConfiguration.getApiResultSize())

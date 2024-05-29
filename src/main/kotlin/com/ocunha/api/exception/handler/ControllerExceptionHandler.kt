@@ -21,7 +21,7 @@ class ControllerExceptionHandler {
         val error = ErrorResource()
         error.field(exception.propertyName)
         error.value(exception.value.toString())
-        error.description(String.format("must be %s", exception.requiredType))
+        error.description("must be ${exception.requiredType}")
 
         return listOf(error)
     }
