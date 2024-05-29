@@ -19,7 +19,7 @@ jobs:
           native-image-job-reports: "true"
 
       - name: Build image with Maven
-        run: mvn -Pnative spring-boot:build-image
+        run: mvn -Pnative native:compile
 
       - name: List target folder
         run: |
