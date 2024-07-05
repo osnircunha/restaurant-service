@@ -123,6 +123,7 @@ the best match restaurant based on given search criteria.
 
 **Starts with considering case:**
 
+
 ```java
     default boolean contains(String current,String searchParam){
         return isNull(searchParam)||StringUtils.startsWith(current,searchParam);
